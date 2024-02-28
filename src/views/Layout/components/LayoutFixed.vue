@@ -1,12 +1,18 @@
 <script setup>
 // vueUse
 import { useScroll } from '@vueuse/core'
+import { storeToRefs } from 'pinia';
+import { useCategory } from "@/stores/useCategory.js"
+
 const { y } = useScroll(window)
+
+
+const categoryStore = useCategory()
+const { categoryList } = storeToRefs(categoryStore)
 </script>
 
 <template>
   <div class="app-header-sticky" :class="{ show: y > 78 }">
-    {{ y }}
     <div class="container">
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
@@ -14,32 +20,8 @@ const { y } = useScroll(window)
         <li class="home">
           <RouterLink to="/">首页</RouterLink>
         </li>
-        <li>
-          <RouterLink to="/">居家</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">美食</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">服饰</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">母婴</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">个护</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">数码</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">运动</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">杂项</RouterLink>
+        <li v-for="category in categoryList" :key="category.id">
+          <RouterLink active-class="active" :to="`/category/${category.id}`">{{ category.name }}</RouterLink>
         </li>
       </ul>
 
