@@ -1,11 +1,11 @@
 <script setup>
 import { defineProps } from 'vue';
-defineProps(["goods"])
+defineProps(["goods"]);
 </script>
 
 <template>
-  <RouterLink to="/" class="goods-item">
-    <img :src="goods.picture" alt="" />
+  <RouterLink :to="`/detail/${goods.id}`" class="goods-item">
+    <img v-img-lazy="goods.picture" alt="" />
     <p class="name ellipsis">{{ goods.name }}</p>
     <p class="desc ellipsis">{{ goods.desc }}</p>
     <p class="price">&yen;{{ goods.price }}</p>

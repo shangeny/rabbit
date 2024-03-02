@@ -1,8 +1,7 @@
-import { ref, watch } from "vue";
 import { getTopCategoryAPI } from "@/apis/category.js";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
 
-export default function useCategory() {
+export default function useCategory () {
   // 获取category数据
   const route = useRoute();
   const categoryData = ref({});

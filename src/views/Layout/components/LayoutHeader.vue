@@ -1,15 +1,14 @@
 <script setup>
-import { onMounted } from "vue"
 import { storeToRefs } from 'pinia';
-import { useCategory } from "@/stores/useCategory.js"
+import { useCategory } from "@/stores/useCategory.js";
 
-const categoryStore = useCategory()
-const { categoryList } = storeToRefs(categoryStore)
-const { getCategory } = categoryStore
+const categoryStore = useCategory();
+const { categoryList } = storeToRefs(categoryStore);
+const { getCategory } = categoryStore;
 
 onMounted(() => {
-  getCategory()
-})
+  getCategory();
+});
 </script>
 
 <template>

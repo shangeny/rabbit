@@ -1,7 +1,6 @@
-import { ref, onMounted } from "vue";
 import { getBannerAPI } from "@/apis/home.js";
 
-export default function useBanner() {
+export default function useBanner () {
   // 获取banner
   const bannerList = ref([]);
   const getBanner = async () => {

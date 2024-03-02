@@ -1,8 +1,8 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { useCategory } from "@/stores/useCategory"
-const categoryStore = useCategory()
-const { categoryList } = storeToRefs(categoryStore)
+import { useCategory } from "@/stores/useCategory";
+const categoryStore = useCategory();
+const { categoryList } = storeToRefs(categoryStore);
 </script>
 
 <template>
@@ -17,7 +17,7 @@ const { categoryList } = storeToRefs(categoryStore)
           <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
           <ul>
             <li v-for=" goods in category.goods" :key="goods.id">
-              <RouterLink to="/">
+              <RouterLink :to="`/detail/${goods.id}`">
                 <img alt="" :src="goods.picture" />
                 <div class="info">
                   <p class="name ellipsis-2">

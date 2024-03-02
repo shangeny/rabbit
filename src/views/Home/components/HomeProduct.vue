@@ -1,14 +1,14 @@
 <script setup>
-import HomePanel from './HomePanel.vue'
-import GoodsItem from '@/components/GoodsItem.vue';
-import { getGoodsAPI } from '@/apis/home'
-import { ref, onMounted } from 'vue'
-const goodsProduct = ref([])
+import HomePanel from './HomePanel.vue';
+import GoodsItem from '@/components/GoodsItem/index.vue';
+import { getGoodsAPI } from '@/apis/home';
+import { ref, onMounted } from 'vue';
+const goodsProduct = ref([]);
 const getGoods = async () => {
-  const { result } = await getGoodsAPI()
-  goodsProduct.value = result
-}
-onMounted(() => getGoods())
+  const { result } = await getGoodsAPI();
+  goodsProduct.value = result;
+};
+onMounted(() => getGoods());
 </script>
 
 <template>
