@@ -1,6 +1,7 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useCategory } from "@/stores/useCategory.js";
+import HearderCart from "./HearderCart.vue";
 
 const categoryStore = useCategory();
 const { categoryList } = storeToRefs(categoryStore);
@@ -30,7 +31,7 @@ onMounted(() => {
         <input type="text" placeholder="搜一搜">
       </div>
       <!-- 头部购物车 -->
-
+      <HearderCart />
     </div>
   </header>
 </template>

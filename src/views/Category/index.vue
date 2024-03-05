@@ -1,5 +1,4 @@
 <script setup>
-import GoodsItem from "@/components/GoodsItem/index.vue";
 import useBanner from "./composables/useBanner.js";
 import useCategory from "./composables/useCategory.js";
 const { bannerList } = useBanner();

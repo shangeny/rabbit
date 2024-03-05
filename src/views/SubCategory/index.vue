@@ -1,7 +1,6 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { getCategoryFilterAPI, getSubCategoryAPI } from "@/apis/category.js";
-import GoodsItem from "@/components/GoodsItem/index.vue";
 const route = useRoute();
 const categoryData = ref({});
 const getCategoryData = async () => {

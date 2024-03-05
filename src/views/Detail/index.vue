@@ -2,7 +2,10 @@
 import { useRoute } from "vue-router";
 import { getDetail } from "@/apis/detail.js";
 import DetailHot from "./components/DetailHot.vue";
-import ImageView from "@/components/ImageView/index.vue";
+import { ElMessage } from "element-plus";
+import { useCart } from "@/stores/useCart.js";
+const cartStore = useCart();
+const { addCart } = useCart();
 const route = useRoute();
 const goods = ref({});
 
@@ -11,6 +14,31 @@ const getGoos = async () => {
   goods.value = res.result;
 };
 watch(() => route.params, () => getGoos(), { immediate: true });
+
+const skuObj = ref({});
+const skuChagne = (sku) => {
+  skuObj.value = sku;
+};
+
+const count = ref(0);
+
+const addCartHander = () => {
+  if (Object.keys(skuObj.value).length !== 0 && count.value !== 0) {
+    addCart({
+      id: goods.value.id,
+      naem: goods.value.naem,
+      picture: goods.value.mainPictures[0],
+      price: goods.value.price,
+      count: count.value,
+      skuId: skuObj.value.skuId,
+      attrsText: skuObj.value.specsText,
+      selected: true
+    });
+  } else {
+    ElMessage.warning("请选择规格或购买数");
+  }
+}
+
 </script>
 
 <template>
@@ -21,7 +49,8 @@ watch(() => route.params, () => getGoos(), { immediate: true });
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: `/category/${goods.categories?.[1].id}` }">{{ goods.categories?.[1].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: `/category/sub/${goods.categories?.[0].id}` }">{{ goods.categories?.[0].name }}
+          <el-breadcrumb-item :to="{ path: `/category/sub/${goods.categories?.[0].id}` }">{{ goods.categories?.[0].name
+            }}
           </el-breadcrumb-item>
           <el-breadcrumb-item>{{ goods.name }}</el-breadcrumb-item>
         </el-breadcrumb>
@@ -81,12 +110,12 @@ watch(() => route.params, () => getGoos(), { immediate: true });
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <Sku :goods="goods" @change="skuChagne" />
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="addCartHander">
                   加入购物车
                 </el-button>
               </div>

@@ -1,25 +1,39 @@
 <script setup>
+import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
+import { useUser } from '@/stores/useUser.js';
+const router = useRouter();
+const store = useUser();
+const { userInfo } = storeToRefs(store);
+const { loginOut } = store;
 
+const loginOutHandler = () => {
+  loginOut();
+  router.replace("/login");
+};
 </script>
 
 <template>
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="true">
-          <li><a href="javascript:;"><i class=" iconfont icon-user"></i>周杰伦</a></li>
+        <template v-if="userInfo.token">
+          <li><a href="javascript:;" @click="$router.push('/member')"><i class=" iconfont icon-user"></i>{{
+          userInfo.nickname
+        }}</a></li>
           <li>
-            <el-popconfirm title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
+            <el-popconfirm title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消" @confirm="loginOutHandler">
               <template #reference>
                 <a href="javascript:;">退出登录</a>
               </template>
             </el-popconfirm>
           </li>
-          <li><a href="javascript:;">我的订单</a></li>
-          <li><a href="javascript:;">会员中心</a></li>
+          <li><a href="javascript:;" @click="$router.push('/member/user')">我的订单</a></li>
+          <li><a href=" javascript:;" @click="$router.push('/member/order')">会员中心</a></li>
         </template>
+
         <template v-else>
-          <li><a href="javascript:;">请先登录</a></li>
+          <li><a href=" javascript:;" @click="$router.replace('/login')">请先登录</a></li>
           <li><a href="javascript:;">帮助中心</a></li>
           <li><a href="javascript:;">关于我们</a></li>
         </template>
